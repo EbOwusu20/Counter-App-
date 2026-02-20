@@ -1,0 +1,106 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOAmaq5vuxrlliCJk0Q/zB1",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/EbOwusu20/Counter-App-/blob/main/Linear%20Progression%20Model\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 9,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "WiI4FHdkohJJ",
+        "outputId": "f9c741b7-045c-426e-f793-ca398d93864b"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[168.27033937 183.9045605  174.28350134 185.1071929  157.44664781\n",
+            " 156.24401542 150.23085344 145.42032386 122.57030836 133.39399992\n",
+            " 139.40716189 155.04138302 123.77294076 159.8519126  149.02822105\n",
+            " 141.81242668 167.06770697 174.28350134 143.01505907 169.47297176\n",
+            " 129.78610273 169.47297176 139.40716189 173.08086895 133.39399992\n",
+            " 167.06770697 163.45980979 165.86507458 134.59663231 158.64928021\n",
+            " 162.25717739 118.96241118 152.63611823 162.25717739 185.1071929\n",
+            " 127.38083794 150.23085344 152.63611823 175.48613374 159.8519126\n",
+            " 152.63611823 175.48613374 167.06770697 189.91772247 167.06770697\n",
+            " 147.82558865 121.36767597 163.45980979 146.62295626 133.39399992\n",
+            " 155.04138302 121.36767597 162.25717739 159.8519126  135.79926471\n",
+            " 144.21769147 145.42032386 165.86507458 144.21769147 140.60979428\n",
+            " 145.42032386 139.40716189 133.39399992 158.64928021 139.40716189\n",
+            " 177.89139853 135.79926471 170.67560416 117.75977878 130.98873513\n",
+            " 128.58347034 152.63611823 173.08086895 133.39399992 175.48613374\n",
+            " 156.24401542 144.21769147 138.2045295  168.27033937 157.44664781\n",
+            " 124.97557315 134.59663231 137.0018971  144.21769147 153.83875063\n",
+            " 157.44664781 144.21769147 145.42032386 132.19136752]\n",
+            "Mean Squared Error :  5254.231976236004\n",
+            "Root Mean Square Error :  72.48608125865272\n"
+          ]
+        }
+      ],
+      "source": [
+        "import numpy as np\n",
+        "import pandas as pd\n",
+        "import matplotlib.pyplot as plt\n",
+        "from sklearn.linear_model import LinearRegression\n",
+        "from sklearn.datasets import  load_diabetes\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.metrics import mean_squared_error\n",
+        "\n",
+        "\n",
+        "\n",
+        "#Load datasets\n",
+        "diabetes =load_diabetes()\n",
+        "X = pd.DataFrame(diabetes.data, columns= diabetes.feature_names)['age'].values.reshape(-1, 1)\n",
+        "Y = diabetes.target\n",
+        "\n",
+        "#Split the dataset into testing sets and then Training sets\n",
+        "X_train, X_test, Y_train, Y_test = train_test_split(\n",
+        "    X, Y, test_size=0.2, random_state=42\n",
+        ")\n",
+        "\n",
+        "#Train the model\n",
+        "model = LinearRegression()\n",
+        "model.fit(X_train, Y_train)\n",
+        "\n",
+        "#Make Prediction\n",
+        "Prediction = model.predict(X_test)\n",
+        "print(Prediction)\n",
+        "\n",
+        "#Compute MSE\n",
+        "mse = mean_squared_error(Y_test, Prediction)\n",
+        "print(\"Mean Squared Error : \", mse)\n",
+        "\n",
+        "# Compute RMSE\n",
+        "rmse = np.sqrt(mse)\n",
+        "print(\"Root Mean Square Error : \", rmse)\n"
+      ]
+    }
+  ]
+}
